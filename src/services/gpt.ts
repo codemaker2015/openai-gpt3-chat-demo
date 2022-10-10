@@ -51,7 +51,7 @@ async function getCompletion(prompt: string): Promise<string> {
   const url = "https://api.openai.com/v1/engines/davinci/completions"
   const headers = {
     'Content-Type': 'application/json',
-    'Authorization': "Bearer your-openai-key"
+    'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`
   }
 
   const data = {
