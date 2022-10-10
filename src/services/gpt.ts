@@ -48,6 +48,12 @@ const RESPONSE_TOKEN_MAXIMUM = 300;
 // backend server to avoid exposing your OpenAI API key in your client
 // side code.
 async function getCompletion(prompt: string): Promise<string> {
+  const url = "https://api.openai.com/v1/engines/davinci/completions"
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': "Bearer your-openai-key"
+  }
+
   const data = {
     prompt,
     max_tokens: RESPONSE_TOKEN_MAXIMUM,
@@ -55,14 +61,11 @@ async function getCompletion(prompt: string): Promise<string> {
     n: 1,
     stop: ['AI:', `Human:`],
   };
-  const result = await axios({
-    method: "post",
-    url: "https://api.openai.com/v1/engines/davinci/completions",
+  const result = await axios.post(
+    url,
     data,
-    headers: {
-      Authorization: "Bearer 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",
-    },
-  });
+    { headers: headers },
+  );
   return result.data.choices[0].text;
 }
 
